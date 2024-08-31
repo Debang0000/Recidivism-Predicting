@@ -22,7 +22,7 @@ library(gbm)
 dataset <- read_excel("/Users/debang/Documents/Stat:Econometrics/recidivism data raw.xlsx")
 ```
 
-First, we remove rows that doesn't have proper race indicators.
+First, we remove rows without proper race indicators.
 ```{r}
 dataset <- dataset %>%
   filter(rowSums(select(., af_am, asian, hisp, nat_am, other)) == 1)
