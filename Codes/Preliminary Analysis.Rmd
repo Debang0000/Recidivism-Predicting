@@ -28,7 +28,7 @@ dataset <- dataset %>%
   filter(rowSums(select(., af_am, asian, hisp, nat_am, other)) == 1)
 ```
 
-Then we visualize the data set, to see how we can start modeling.
+We then visualize the dataset to explore how to start modeling.
 
 Distribution of recidivism and population
 ```{r initial visualization}
@@ -94,7 +94,7 @@ ggplot(category_recidivism, aes(x = category, y = recid_rate, fill = category)) 
     "Female_Other" = "lightgray", "Male_Other" = "darkgray"
   ))
 ```
-And let's dive into it a bit deeper, and see how misdemeanor and priors are related to recidivism.
+Let's dive deeper into the data, and see how misdemeanor and priors are related to recidivism.
 
 ```{r second visualization}
 ggplot(dataset, aes(x = as.factor(recid), y = priors, fill = as.factor(recid))) +
@@ -114,7 +114,7 @@ ggplot(dataset, aes(x = as.factor(misdemeanour), fill = as.factor(recid))) +
   theme_minimal() +
   scale_fill_manual(values = c("0" = "lightblue", "1" = "darkblue"))
 ```
-It seems that individuals with more prior convictions are more likely to recidivate, and same for felon individuals.
+It seems that individuals with more prior convictions are more likely to recidivate, the same applies to individuals convicted of felonies.
 
 Now, we apply a logistic model, and see what we can conclude.
 ```{r glm}
@@ -141,10 +141,10 @@ The negative coefficient (-0.225) suggests that individuals who committed a misd
 Race:
 The positive coefficient (0.264) indicates that African American individuals have a higher likelihood to recidivate (p = 0.036).
 
-The rest of the variables are not statistically significant in this model.
+The remaining variables are not statistically significant in this model.
 
 Next, we simplify the model, and test it.
-```{r simplifies model}
+```{r simplified model}
 # Generate training and testing sets
 set.seed(42)
 
@@ -220,7 +220,7 @@ confusion_matrix_gbm <- confusionMatrix(as.factor(predicted_classes_gbm),
 
 print(confusion_matrix_gbm)
 ```
-Accuracy is about 65%, and the plot shows that priors(number of prior conviction) is significantly more influential than other variables.
+Accuracy is about 65%, and the plot shows that priors (number of prior conviction) is significantly more influential than other variables.
 
 Random forest:
 ```{r random forest}
